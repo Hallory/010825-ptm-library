@@ -25,16 +25,16 @@ class Borrow(models.Model):
         related_name='borrows',
     )
 
-    start_date: datetime = models.DateField(
+    start_date = models.DateField(
         verbose_name='Дата выдачи',
         auto_now_add=True,
     )
 
-    end_plane_date: datetime = models.DateField(
+    end_plane_date = models.DateField(
         verbose_name='Планируемая дата возврата',
     )
 
-    end_fact_date: datetime = models.DateField(
+    end_fact_date = models.DateField(
         verbose_name='Фактическая дата возврата',
         null=True,
         blank=True,
