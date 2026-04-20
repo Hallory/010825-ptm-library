@@ -1,6 +1,13 @@
 from library.serializers.category import CategorySerializer
-from library.serializers.post import PostSerializer
+from library.serializers.book import BookSerializer
+from library.serializers.post import PostSerializer, PostRetrieveSerializer, PostCreateUpdateSerializer
+from library.serializers.event import EventSerializer
+
 __all__ = [
     'CategorySerializer',
-    'PostSerializer'
+    'BookSerializer',
+    'PostSerializer',
+    'PostRetrieveSerializer',
+    'PostCreateUpdateSerializer',
+    'EventSerializer',
 ]

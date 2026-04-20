@@ -1,23 +1,35 @@
-from rest_framework.generics import ListAPIView
+from rest_framework import viewsets
 
 from library.models import Posts
-from library.serializers.post import PostSerializer
+from library.serializers import PostCreateUpdateSerializer, PostSerializer, PostRetrieveSerializer
 
 
-class PostListView(ListAPIView):
-    serializer_class = PostSerializer
-    
+class PostViewSet(viewsets.ModelViewSet):
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return PostSerializer
+        elif self.action == 'retrieve':
+            return PostRetrieveSerializer
+        # elif self.action in ('create', 'update', 'partial_update'):
+
+        return PostCreateUpdateSerializer
+
     def get_queryset(self):
-        queryset = Posts.objects.all()
-        
-        author_id = self.request.query_params.get('author_id')
+        posts = Posts.objects.all()
+
         moderated = self.request.query_params.get('moderated')
-        
-        if author_id:
-            queryset = queryset.filter(author_id=author_id)
-            
-        if moderated is not None:
-            moderated_value = moderated.lower() == 'true'
-            queryset = queryset.filter(moderated=moderated_value)
-            
-        return queryset
+        if moderated:
+            if moderated == 'true':
+                posts = posts.filter(moderated=True)
+            elif moderated == 'false':
+                posts = posts.filter(moderated=False)
+            else:
+                posts = posts.none()
+
+        return posts
+    #
+    # def partial_update(self, request, *args, **kwargs):
+    #     print('*' * 50)
+    #     print(self.get_serializer())
+    #     print('*' * 50)
+    #     return super().partial_update(request, *args, **kwargs)

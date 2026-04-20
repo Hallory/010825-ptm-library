@@ -1,22 +1,23 @@
 from rest_framework.generics import ListAPIView
 
 from library.models import Book
-from library.serializers.book import BookSerializer
+from library.serializers import BookSerializer
 
 
-class BookListView(ListAPIView):
+
+class BookListAPIView(ListAPIView):
     serializer_class = BookSerializer
-    
+
     def get_queryset(self):
-        queryset = Book.objects.all()
-        
-        year_from = self.request.query_params.get('year_from')
-        category_name = self.request.query_params.get('category_name')
-        
+        all_books = Book.objects.all()
+
+        year_from = self.request.query_params.get("year_from")
+        category_name = self.request.query_params.get("category_name")
+
         if year_from:
-            queryset = queryset.filter(published_date__year__gte=year_from)
-            
+            all_books = all_books.filter(published_date__year__gte=year_from)
+
         if category_name:
-            queryset = queryset.filter(category__name=category_name)
-            
-        return queryset 
+            all_books = all_books.filter(category__name__iexact=category_name)
+
+        return all_books
