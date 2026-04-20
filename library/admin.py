@@ -1,6 +1,5 @@
 from django.contrib import admin
-from library.models import Author, Book
-from library.models import Borrow
+from library.models import Author, Book, Borrow, Library
 from library.models.publisher import Publisher
 
 
@@ -8,7 +7,7 @@ from library.models.publisher import Publisher
 admin.site.register(Author)
 admin.site.register(Book)
 admin.site.register(Publisher)
-
+admin.site.register(Library)
 
 @admin.register(Borrow)
 class BorrowAdmin(admin.ModelAdmin):
