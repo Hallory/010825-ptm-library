@@ -1,11 +1,13 @@
 from django.contrib import admin
-from library.models import Author, Book, Borrow, Publisher
+from library.models import Author, Book, Borrow, Publisher, Library
 
 
 # Register your models here.
 admin.site.register(Author)
 admin.site.register(Book)
 admin.site.register(Publisher)
+admin.site.register(Library)
+
 
 
 @admin.register(Borrow)
