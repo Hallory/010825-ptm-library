@@ -10,9 +10,12 @@ default_router.register('posts', PostViewSet, basename='posts')
 default_router.register('events', EventViewSet, basename='events')
 
 
+
 urlpatterns = [
     path('categories/', include('library.urls.categories')),
     path('books/', include('library.urls.books')),
+    path('authors/', include('library.urls.authors')),
+    path('users/', include('library.urls.users')),
 ]
 
 urlpatterns += default_router.urls
